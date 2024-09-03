@@ -2,7 +2,7 @@
 import random
 
 #a variavel do tipo ARRAY que ira amarzenar os simbolos para a forca e colocar nas posicoes INDICES
-FORCAIMF = ['''
+FORCAIMG = ['''
  +---+
  |   |
      |
@@ -59,9 +59,9 @@ palavra = 'banana telescopio cachorro martelo girafa hamburguer tio pai carro ga
 #FUNCAO PRINCIPAL DO PROGRAMA
 def main():
     #VARIAVEL DEVE SER GLOBAL PORQUE FOR DECLARADA FORA DA FUNCAO
-    global FORCAIMF
+    global FORCAIMG
     #APENAS ÁRA EXIBIR UM CABECALHO DO JOGO
-    print("F o R C A")
+    print("F O R C A")
     #DECLARAR AS VARIAVEIS PARA COMECAREM VAZIAS
     letrasErradas = ""
     letrasAcertadas = ""
@@ -84,11 +84,11 @@ def main():
         else:
             letrasErradas += palpite
             #CODIGO ABAIXO LIMITA A QUANTIDADE DE TENTATIVAS CONFORME A QTDE DE SEU ARRAY forcaimg(5)
-            if len(letrasErradas) == len(FORCAIMF) - 1:
+            if len(letrasErradas) == len(FORCAIMG) - 1:
                 imprimeJogo(letrasErradas,letrasAcertadas, palavraSecreta)
                 print("Você excedeu o seu limite de palpites!")
                 print("Depois de " + str(len(letrasErradas)) + " letras erradas e " + str(len(letrasAcertadas)),end="")
-                print("letras corretas, a palavra era: " + palavraSecreta + ".")
+                print(" letras corretas, a palavra era: " + palavraSecreta + ".")
                 jogando = False
         if not jogando:
             if JogarNovamente():
@@ -97,10 +97,10 @@ def main():
                 jogando = True
                 palavraSecreta = geraPalavraAleatoria().upper()
 
-# FUNCAO QIE RETORNA UMA STRING A PARTIR DA LISTA DE PALAVRAS GLOBAL
+# FUNCAO QUE RETORNA UMA STRING A PARTIR DA LISTA DE PALAVRAS GLOBAL
 def geraPalavraAleatoria():
-    global palavras
-    return random.choice(palavras)
+    global palavra
+    return random.choice(palavra)
 
 # FUNCAO RECEBE UMA STRING PALAVRA OU LISTA IMPRIME ESSTA LISTA COM A QUANTIDADE DE ESPAÇOS ENTRE AS LETRA OU STRING
 def imprimeComEspacos(palavra):
@@ -112,16 +112,18 @@ def imprimeComEspacos(palavra):
 # FEITO A PARTIR DA VARIAVEL global QUE CONTEM AS IMAGENS DO JOGO EM ascii art, E TAMBEM AS LETRAS CHUTADAS DE MANERA CORRETA E AS LETRAS ERRADAS E A PALAVRA SECRETA
 def imprimeJogo(letrasErradas, letrasAcertadas, palavraSecreta):
     #VARIAVEL DEVE SER GLOBAL PORUQE FOI DECLARADA FORA DA FUNCAO
-    global FORCAIMF
+    global FORCAIMG
     #VAI IMPRIMIR O ARRAY DE LETRAS ERRADAS E VERIFICA O TAMANHO (busca a posicao) DA FIGURA
-    print(FORCAIMF[len(letrasErradas)]+"\n")
+    print(FORCAIMG[len(letrasErradas)]+"\n")
     print("Letras Erradas: ",end="")
     imprimeComEspacos(letrasErradas)
 
     #VARIAVEL IMPRIME O CARACTER menos PARA VIZUALIZAR A QTDE DE CARACTERES DA PALAVRA SECRETA
+    vazio = '-'*len(palavraSecreta)
     for i in range(len(palavraSecreta)):
         if palavraSecreta[i] in letrasAcertadas:
             vazio = vazio[:i] + palavraSecreta[i] + vazio[i+1:]
+    imprimeComEspacos(vazio)
 
 #FUNCAO FEITA PARA GARANTIR QUE O USUARIO COLOQUE UMA ENTRADA VALIDA OU SEJA UNICA LETRA QUE ELE AINDA NÃO TENHA CHUTADO
 def recebePalpite(palpitesFeitos):
@@ -136,5 +138,27 @@ def recebePalpite(palpitesFeitos):
         elif palpite in palpitesFeitos:
             print("Essa letra ja existe, digite outra. \n")
         #SE ELE NÃO DIGITAR UMA LETRA OU NUMERO
-        elif not 
+        elif not 'A' <= palpite <= 'Z':
+            print("Insira apenas letras. \n")
+        else:
+            return palpite
+        
+#A FUNCAO ABAIXO PEDE PARA O USUARIO DECIDIR SE ELE QUER JOGAR NOVAMENTE
+#RETORNA UM BOOLEANO REPRESENTANDO A RESPOSTA
+def JogarNovamente():
+    #INPRIME MENSAGEM PERGUNTADO AO USUARIO SE DESEJA JOGAR
+    #USO DA FUNCAO .startswith() IDENTIFICA UM CARACTER
+    return input("Você quer jogar novamente? (SIM ou NÃO) \n").upper().startswith("S")
+
+#FUNCAO QUE VERIFICA SE O USUARIO ACERTOU TODAS AS LETRA DA PALAVRA SECRETA
+def VerificaSeGanhou(palavraSecreta,letrasAcertadas):
+    ganhou = True
+    for letra in palavraSecreta:
+        #VERIFICA SE AS LETRAS ESTÃO EM LETRAS ACERTADAS CASO CONTRARIO FICA False
+        if letra not in letrasAcertadas:
+            ganhou = False
+            break
+    return ganhou
+
+main()
 
