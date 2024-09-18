@@ -1,9 +1,14 @@
 from tkinter import *
 
 def bt_click_soma():
-    num1 = int(ed1.get())
-    num2 = int(ed2.get())
-    lb["text"] = num1 + num2
+    if str(ed1.get()).isnumeric() and str(ed2.get()).isnumeric():
+        num1 = int(ed1.get())
+        num2 = int(ed2.get())
+        lb["text"] = num1 + num2
+        lb["bg"] = "#00fa9a"
+    else:
+        lb["text"] = "Valores são invalidos"
+        lb["bg"] = "red"
 
 def bt_click_subtracao():
     num1 = int(ed1.get())
@@ -45,5 +50,8 @@ ed1.place(x=230,y=150)
 
 ed2 = Entry(i,width="32")
 ed2.place(x=230,y=180)
+
+lb_eu  = Label(i,text="Gabriel Eduardo Schulze Machado")
+lb_eu.place(x=230,y=290)
 
 i.mainloop()
