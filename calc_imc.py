@@ -5,7 +5,7 @@ def bt_click():
     peso = float(ed_peso.get())
     altura = float(ed_altura.get())
     imc = peso / (altura * altura)
-    lb_valor["text"] = "{:4.2f}".format(imc)
+    lb_valor["text"] = "{:4.2f}".format(imc) # f"{imc:.2f}"
     if imc <= 18.4:
         lb_imc["text"] = "Abaixo do peso"
     elif imc > 18.4 and imc <= 24.9:
